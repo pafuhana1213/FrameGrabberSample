@@ -5,7 +5,7 @@
 #if WITH_EDITOR
 	#include "Editor.h"
 	#include "Editor/EditorEngine.h"
-	#include "ILevelViewport.h"
+	#include "IAssetViewport.h"
 #endif
 
 // Sets default values
@@ -94,7 +94,7 @@ bool  AFrameGrabberActor::StartFrameGrab()
 				{
 					if (SlatePlayInEditorSession->DestinationSlateViewport.IsValid())
 					{
-						TSharedPtr<ILevelViewport> DestinationLevelViewport = SlatePlayInEditorSession->DestinationSlateViewport.Pin();
+						TSharedPtr<IAssetViewport> DestinationLevelViewport = SlatePlayInEditorSession->DestinationSlateViewport.Pin();
 						SceneViewport = DestinationLevelViewport->GetSharedActiveViewport();
 					}
 					else if (SlatePlayInEditorSession->SlatePlayInEditorWindowViewport.IsValid())
