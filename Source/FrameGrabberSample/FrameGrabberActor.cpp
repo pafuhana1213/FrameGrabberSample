@@ -51,26 +51,13 @@ void AFrameGrabberActor::Capture()
 	if (FrameGrabber.IsValid() && CaptureFrameTexture)
 	{
 		FrameGrabber->CaptureThisFrame(FFramePayloadPtr());
-		TArray<FCapturedFrameData> Frames = FrameGrabber->GetCapturedFrames();
 
-		if (Frames.Num())
+		if (TArray<FCapturedFrameData> Frames = FrameGrabber->GetCapturedFrames(); Frames.Num())
 		{
 			FCapturedFrameData& LastFrame = Frames.Last();
 
-			CaptureFrameData.Empty();
-
-			for (int32 i = 0; i < LastFrame.ColorBuffer.Num(); i++)
-			{
-				//FColor (R,G,B,A)->BGRA 
-				CaptureFrameData.Add(LastFrame.ColorBuffer[i].B);
-				CaptureFrameData.Add(LastFrame.ColorBuffer[i].G);
-				CaptureFrameData.Add(LastFrame.ColorBuffer[i].R);
-				CaptureFrameData.Add(LastFrame.ColorBuffer[i].A);
-			}
-
-
-			auto Region = new FUpdateTextureRegion2D(0, 0, 0, 0, LastFrame.BufferSize.X, LastFrame.BufferSize.Y);
-			CaptureFrameTexture->UpdateTextureRegions(0, 1, Region, 4 * LastFrame.BufferSize.X, 4, CaptureFrameData.GetData());
+			const auto Region = new FUpdateTextureRegion2D(0, 0, 0, 0, LastFrame.BufferSize.X, LastFrame.BufferSize.Y);
+			CaptureFrameTexture->UpdateTextureRegions(0, 1, Region, 4 * LastFrame.BufferSize.X, 4, &(LastFrame.ColorBuffer[0].B));
 		}
 	}
 	
