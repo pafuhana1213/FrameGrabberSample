@@ -51,9 +51,6 @@ public:
 	UMaterialInstanceDynamic* MaterialInstanceDynamic;
 
 	UPROPERTY()
-	TArray<uint8> CaptureFrameData;
-
-	UPROPERTY()
 	UTexture2D* CaptureFrameTexture;
 
 private:
